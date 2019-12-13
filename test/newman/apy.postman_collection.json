@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "023b66cb-b65a-4816-89f4-ed617dc28fd7",
+		"name": "apy",
+		"description": "api tests for apy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "root query test ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44b5cc89-ba78-4759-889d-b6f78583f461",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"MessageTest\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/?m={{message}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "m",
+							"value": "{{message}}"
+						}
+					]
+				},
+				"description": "send message query to root path"
+			},
+			"response": []
+		},
+		{
+			"name": "post data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "588df077-423d-414c-aa6d-3addfa163df8",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Verify posting distance.\", function () {",
+							"    pm.expect(jsonData.result.distance).to.eql(\"xyz\");",
+							"});",
+							"",
+							"pm.test(\"Verify posting name.\", function () {",
+							"    pm.expect(jsonData.result.name).to.eql(\"xyz\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"xyz\",\"distance\":\"xyz\"}"
+				},
+				"url": {
+					"raw": "{{url}}/star",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"star"
+					]
+				},
+				"description": "posting to endpoints that store requests in mongoDb"
+			},
+			"response": []
+		},
+		{
+			"name": "json validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82fe43b5-71c2-418f-b3bf-1e218be8c761",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"var schema = {",
+							"    \"result\": [{",
+							"         \"distance\": {",
+							"            \"type\":\"integer\"",
+							"             },",
+							"         \"name\": {",
+							"             \"type\":\"string\"",
+							"             }",
+							"    }]",
+							"};",
+							"",
+							"pm.test('Validate json schema.', function() {",
+							"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/star",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"star"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

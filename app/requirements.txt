@@ -1,0 +1,4 @@
+Flask==1.1.1
+flask_pymongo==2.3.0
+gunicorn==20.0.4
+flask_debugtoolbar==0.10.1

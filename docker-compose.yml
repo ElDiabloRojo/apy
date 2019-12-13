@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+  nginx:
+    network_mode: host
+    restart: always
+    container_name: "nginx"
+    image: "nginx:1.16.1-alpine"
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+    depends_on:
+      - 'mongodb-express'
+  apy:
+    network_mode: host
+    restart: always
+    container_name: "apy"
+    build:
+      context: .
+      dockerfile: python.Dockerfile
+  mongo:
+    network_mode: host
+    container_name: "mongo"
+    image: "mongo:4.2.1-bionic"
+    environment :
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: restdb
+    volumes:
+      - ./mongo/db-init/:/docker-entrypoint-initdb.d
+  mongodb-express:
+    network_mode: host
+    restart: always
+    container_name: "mongodb-express"
+    image: "mongo-express:0.49.0"
+    environment :
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_OPTIONS_EDITORTHEME: 'darcula'
+    depends_on:
+      - 'mongo'
