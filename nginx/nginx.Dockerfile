@@ -3,7 +3,7 @@ FROM nginx:1.16.1
 LABEL maintainer="ElDiabloRojo <holdens.uk@googlemail.com>"
 LABEL nginx_version="1.16.1"
 LABEL version="1.0"
-LABEL description="Nginx & Amplify docker image for apy.""
+LABEL description="Nginx & Amplify docker image for apy."
 
 # Install the NGINX Amplify Agent
 RUN apt-get update \
@@ -33,7 +33,7 @@ COPY ./conf.d/stub_status.conf /etc/nginx/conf.d
 # However, including private keys in the Dockerfile is not recommended.
 # Use the environment variables at runtime as described below.
 
-#ENV API_KEY 1234567890
+ENV API_KEY 1ec221f0b8ef2ae20728a6d2e46319a6
 
 # If AMPLIFY_IMAGENAME is set, the startup wrapper script will use it to
 # generate the 'imagename' to put in the /etc/amplify-agent/agent.conf
@@ -43,7 +43,7 @@ COPY ./conf.d/stub_status.conf /etc/nginx/conf.d
 # AMPLIFY_IMAGENAME can also be passed to the instance at runtime as
 # described below.
 
-#ENV AMPLIFY_IMAGENAME my-docker-instance-123
+ENV AMPLIFY_IMAGENAME apy
 
 # The /entrypoint.sh script will launch nginx and the Amplify Agent.
 # The script honors API_KEY and AMPLIFY_IMAGENAME environment
