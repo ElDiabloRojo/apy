@@ -25,12 +25,12 @@ RUN unlink /var/log/nginx/access.log \
     && chmod 644 /var/log/nginx/*log
 
 # Copy nginx stub_status config
-COPY ./conf.d/stub_status.conf /etc/nginx/conf.d
+COPY conf.d/stub_status.conf /etc/nginx/conf.d
 
 ENV API_KEY 1ec221f0b8ef2ae20728a6d2e46319a6
 
 ENV AMPLIFY_IMAGENAME apy
 
-COPY ./entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

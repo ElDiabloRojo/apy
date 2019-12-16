@@ -2,9 +2,9 @@ FROM python:3
 
 LABEL maintainer="ElDiabloRojo <holdens.uk@googlemail.com>"
 LABEL version="1.0"
-LABEL description="Docker image for apy.""
+LABEL description="Docker image for apy."
 
-ADD app/ app/
+ADD ./ app/
 
 RUN pip install -r app/requirements.txt
 
