@@ -5,7 +5,7 @@ services:
     container_name: "nginx_amplify"
     build:
       context: nginx/
-      dockerfile: ../docker/nginx.Dockerfile
+      dockerfile: docker/nginx.Dockerfile
     environment:
       API_KEY: "1ec221f0b8ef2ae20728a6d2e46319a6"
       AMPLIFY_IMAGENAME: apy
@@ -20,7 +20,7 @@ services:
     container_name: "apy"
     build:
       context: app/
-      dockerfile: ../docker/python.Dockerfile
+      dockerfile: docker/python.Dockerfile
     depends_on:
       - 'mongo'
   mongo:

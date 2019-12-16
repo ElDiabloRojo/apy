@@ -16,16 +16,16 @@ rm-all:
 	make rm-apy; make rm-apy
 
 build-apy:
-	docker build -t apy ./app -f docker/python.Dockerfile
+	docker build -t apy app/ -f app/docker/python.Dockerfile
 
 rm-apy:
 	docker image rm apy
 
 build-nginx:
-	docker build -t nginx_amplify ./nginx -f docker/nginx.Dockerfile
+	docker build -t nginx_amplify nginx -f nginx/docker/nginx.Dockerfile
 
 rm-apy:
-	docker image rm nginx_amplifuy
+	docker image rm nginx_amplify
 
 ###
 # Compose Targets
