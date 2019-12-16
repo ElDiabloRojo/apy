@@ -1,7 +1,6 @@
 ###
 # Dev Targets
 ###
-
 LOCAL_NAMES='127.0.0.1 apy.local express.local'
 
 configure:
@@ -10,11 +9,23 @@ configure:
 ###
 # Docker Targets
 ###
-build:
-	docker build -t apy_web . -f python.Dockerfile
+build-all:
+	make build-apy; make build-nginx
 
-rm:
-	docker image rm apy_apy
+rm-all:
+	make rm-apy; make rm-apy
+
+build-apy:
+	docker build -t apy ./app -f docker/python.Dockerfile
+
+rm-apy:
+	docker image rm apy
+
+build-nginx:
+	docker build -t nginx_amplify ./nginx -f docker/nginx.Dockerfile
+
+rm-apy:
+	docker image rm nginx_amplifuy
 
 ###
 # Compose Targets
@@ -26,7 +37,7 @@ decompose: docker-compose.yml
 	docker-compose down
 
 debug:
-	make decompose; make rm; docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit
+	make decompose; make rm-all; docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit
 
 restart:
 	docker-compose restart --timeout 0
