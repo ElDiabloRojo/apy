@@ -1,10 +1,14 @@
 version: "3.7"
 services:
   nginx:
-    network_mode: host
     restart: always
     container_name: "nginx"
-    image: "nginx:1.16.1-alpine"
+    build:
+      context: nginx/
+      dockerfile: nginx.Dockerfile
+    environment:
+      API_KEY: "1ec221f0b8ef2ae20728a6d2e46319a6"
+      AMPLIFY_IMAGENAME: apy
     ports:
       - "80:80"
     volumes:
@@ -12,14 +16,15 @@ services:
     depends_on:
       - 'mongodb-express'
   apy:
-    network_mode: host
     restart: always
     container_name: "apy"
     build:
       context: .
       dockerfile: python.Dockerfile
+    depends_on:
+      - 'mongo'
   mongo:
-    network_mode: host
+    restart: always
     container_name: "mongo"
     image: "mongo:4.2.1-bionic"
     environment :
@@ -29,7 +34,6 @@ services:
     volumes:
       - ./mongo/db-init/:/docker-entrypoint-initdb.d
   mongodb-express:
-    network_mode: host
     restart: always
     container_name: "mongodb-express"
     image: "mongo-express:0.49.0"
@@ -39,3 +43,10 @@ services:
       ME_CONFIG_OPTIONS_EDITORTHEME: 'darcula'
     depends_on:
       - 'mongo'
+    links:
+      - mongo
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3

@@ -28,6 +28,9 @@ decompose: docker-compose.yml
 debug:
 	make decompose; make rm; docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit
 
+restart:
+	docker-compose restart --timeout 0
+
 ###
 # App Targets
 ###
