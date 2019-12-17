@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>World population</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css')}}">
+</head>
+<body>
+<div class="wrapper">
+    <h1>Duration & Values</h1>
+    <h2>Mixed chart example.</h2>
+
+    <canvas id="myChart" width="1600" height="900"></canvas>
+</div>
+<script>
+    var labels = {{ labels | tojson }};
+    var values = {{ values | tojson }};
+    var durations = {{ durations | tojson }};
+</script>
+<script src="{{ url_for('static', filename='script.js')}}"></script>
+</body>
+</html>

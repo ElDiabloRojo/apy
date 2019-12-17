@@ -56,12 +56,12 @@
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"",
-							"pm.test(\"Verify posting distance.\", function () {",
-							"    pm.expect(jsonData.result.distance).to.eql(\"xyz\");",
+							"pm.test(\"Verify posting value.\", function () {",
+							"    pm.expect(jsonData.result.value).to.eql(\"xyz\");",
 							"});",
 							"",
-							"pm.test(\"Verify posting name.\", function () {",
-							"    pm.expect(jsonData.result.name).to.eql(\"xyz\");",
+							"pm.test(\"Verify posting label.\", function () {",
+							"    pm.expect(jsonData.result.label).to.eql(\"xyz\");",
 							"});"
 						]
 					}
@@ -77,7 +77,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"xyz\",\"distance\":\"xyz\"}"
+					"raw": "{\"label\":\"xyz\",\"value\":\"xyz\"}"
 				},
 				"url": {
 					"raw": "{{url}}/star",
@@ -105,10 +105,10 @@
 							"",
 							"var schema = {",
 							"    \"result\": [{",
-							"         \"distance\": {",
+							"         \"value\": {",
 							"            \"type\":\"integer\"",
 							"             },",
-							"         \"name\": {",
+							"         \"label\": {",
 							"             \"type\":\"string\"",
 							"             }",
 							"    }]",

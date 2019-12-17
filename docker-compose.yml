@@ -30,7 +30,7 @@ services:
     environment :
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: restdb
+      MONGO_INITDB_DATABASE: apy
     volumes:
       - ./mongo/db-init/:/docker-entrypoint-initdb.d
   mongodb-express:

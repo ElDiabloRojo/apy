@@ -2,7 +2,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", template_folder="templates")
 app.config.from_object('api.config')
 #app.config.from_envvar('API_CONFIG')
 
@@ -27,3 +27,4 @@ def page_not_found(e):
 from api.routes import mongo
 from api.routes import query
 from api.routes import bokeh
+from api.routes import hekob

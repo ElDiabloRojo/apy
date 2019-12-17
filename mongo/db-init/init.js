@@ -2,38 +2,38 @@
 db.createUser({
     user: "user",
     pwd: "secretPassword",
-    roles: [ { role: "readWrite", db: "restdb" } ]
+    roles: [ { role: "readWrite", db: "apy" } ]
 })
 
 db.stars.insert(
     [
         {
-            name: "1",
-            distance: "1"
+            label: "one",
+            value: "1"
         },
         {
-            name: "2",
-            distance: "2"
+            label: "two",
+            value: "2"
         },
         {
-            name: "4",
-            distance: "4"
+            label: "four",
+            value: "4"
         },
         {
-            name: "8",
-            distance: "8"
+            label: "eight",
+            value: "8"
         },
         {
-            name: "16",
-            distance: "16"
+            label: "sixteen",
+            value: "16"
         },
         {
-            name: "32",
-            distance: "32"
+            label: "thirty two",
+            value: "32"
         },
         {
-            name: "64",
-            distance: "64"
+            label: "sixty four",
+            value: "64"
         }
     ]
 )
