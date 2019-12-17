@@ -1,5 +1,5 @@
 ###
-# Dev Targets
+# Env Targets
 ###
 LOCAL_NAMES='127.0.0.1 apy.local express.local'
 
@@ -31,13 +31,19 @@ rm-apy:
 # Compose Targets
 ###
 compose: docker-compose.yml
-	docker-compose up --detach --always-recreate-deps --build
+	docker-compose up --detach --build
 
 decompose: docker-compose.yml
-	docker-compose down
+	docker-compose down --volumes
 
 debug:
-	make decompose; make rm-all; docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit
+	docker-compose up --force-recreate --always-recreate-deps --build --abort-on-container-exit
+
+clean-build:
+	make clean; make compose
+
+clean:
+	make decompose; make rm-all
 
 restart:
 	docker-compose restart --timeout 0
@@ -54,7 +60,7 @@ dep:
 ###
 # Test Targets
 ###
-newman:
+nm:
 	newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_environment.json
 
 curl:
