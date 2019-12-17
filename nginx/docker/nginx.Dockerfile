@@ -2,7 +2,7 @@ FROM nginx:1.16.1
 
 LABEL maintainer="ElDiabloRojo <holdens.uk@googlemail.com>"
 LABEL nginx_version="1.16.1"
-LABEL version="1.0"
+LABEL version="1.6"
 LABEL description="Nginx & Amplify docker image for apy."
 
 # Install the NGINX Amplify Agent

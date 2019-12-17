@@ -9,7 +9,7 @@ app.config.from_object('api.config')
 # ref: https://gist.github.com/ibeex/3257877
 formatter = logging.Formatter(
     "[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s")
-handler = logging.handlers.SysLogHandler()
+handler = logging.handlers.SysLogHandler(address='/dev/log')
 handler.setLevel(logging.DEBUG)
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
@@ -26,3 +26,4 @@ def page_not_found(e):
 # Import the routes from all controllers
 from api.routes import mongo
 from api.routes import query
+from api.routes import bokeh
