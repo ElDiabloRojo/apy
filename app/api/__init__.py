@@ -26,5 +26,5 @@ def page_not_found(e):
 # Import the routes from all controllers
 from api.routes import mongo
 from api.routes import query
-from api.routes import bokeh
 from api.routes import hekob
+from api.routes import chart

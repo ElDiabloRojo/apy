@@ -9,30 +9,37 @@ db.stars.insert(
     [
         {
             label: "one",
+            duration: "10",
             value: "1"
         },
         {
-            label: "two",
+            label: "one",
+            duration: "12",
             value: "2"
         },
         {
-            label: "four",
+            label: "two",
+            duration: "15",
             value: "4"
         },
         {
-            label: "eight",
+            label: "three",
+            duration: "13",
             value: "8"
         },
         {
-            label: "sixteen",
+            label: "four",
+            duration: "12",
             value: "16"
         },
         {
-            label: "thirty two",
+            label: "5",
+            duration: "8",
             value: "32"
         },
         {
-            label: "sixty four",
+            label: "six",
+            duration: "7",
             value: "64"
         }
     ]

@@ -2,22 +2,35 @@ var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-    labels: years,
+        labels: labels,
         datasets: [{
-        label: "Africa",
-        type: "line",
-        borderColor: "#5ac18e",
+            label: "values",
+            type: "line",
+            backgroundColor: "#ff6666",
+            backgroundColorHover: "#ffb2b2",
+            data: values,
+            fill: false
+        },{
+            label: "durations",
+            type: "line",
+            borderColor: "#5ac18e",
             backgroundColorHover: "#ace0c6",
-        data: africa,
-        fill: false
-    },{
-        label: "Africa",
-        type: "bar",
-        backgroundColor: "#ff6666",
-        backgroundColorHover: "#ffb2b2",
-        data: africa
-    }
-    ]
+            data: durations,
+            fill: false
+        },{
+            label: "values",
+            type: "bar",
+            backgroundColor: "#ff6666",
+            backgroundColorHover: "#ffb2b2",
+            data: values
+        },{
+            label: "durations",
+            type: "bar",
+            borderColor: "#5ac18e",
+            backgroundColorHover: "#ace0c6",
+            data: durations
+        }
+        ]
 },
     options: {
         title: {

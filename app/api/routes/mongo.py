@@ -10,7 +10,7 @@ def get_all_stars():
     star = mongo.db.stars
     output = []
     for s in star.find():
-        output.append({'label' : s['label'], 'value' : s['value']})
+        output.append({'label' : s['label'], 'value' : s['value'], 'duration' : s['duration']})
     return jsonify({'result' : output})
 
 @app.route('/star/', methods=['GET'])
@@ -18,7 +18,7 @@ def get_one_star(label):
     star = mongo.db.stars
     s = star.find_one({'label' : label})
     if s:
-        output = {'label' : s['label'], 'value' : s['value']}
+        output = {'label' : s['label'], 'value' : s['value'], 'duration' : s['duration']}
     else:
         output = "No such name"
     return jsonify({'result' : output})
@@ -28,9 +28,10 @@ def add_star():
     star = mongo.db.stars
     label = request.json['label']
     value = request.json['value']
-    star_id = star.insert({'label': label, 'value': value})
+    duration = request.json['duration']
+    star_id = star.insert({'label': label, 'value': value, 'duration' : duration})
     new_star = star.find_one({'_id': star_id })
-    output = {'label' : new_star['label'], 'value' : new_star['value']}
+    output = {'label' : new_star['label'], 'value' : new_star['value'], 'duration' : new_star['duration']}
     return jsonify({'result' : output})
 
 @app.route('/purge', methods=['POST'])
