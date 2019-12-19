@@ -6,4 +6,3 @@ LOGGER_NAME = 'api-server'
 LOG_FILENAME = 'api-server.log'
 
 MONGO_DBNAME = 'apy'
-MONGO_URI = 'mongodb://user:secretPassword@mongo:27017/apy'

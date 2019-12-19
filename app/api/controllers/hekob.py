@@ -1,8 +1,5 @@
 from api import app
-import logging
 from flask_pymongo import PyMongo
-from flask import Flask
-from flask import Markup
 from flask import render_template
 
 mongo = PyMongo(app)

@@ -2,5 +2,5 @@
 .DS_Store
 app/__pycache__
 app/api/__pychache__
-app/api/routes/__pychache__
+app/api/controllers/__pychache__
 app/api-server.log

@@ -1,4 +1,5 @@
 from api import app
+import os
 from flask import jsonify
 from flask import request
 from flask_pymongo import PyMongo
@@ -43,4 +44,4 @@ def purge():
     return jsonify({'result' : purge_stars.deleted_count})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

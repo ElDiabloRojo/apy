@@ -21,6 +21,8 @@ services:
     build:
       context: app/
       dockerfile: docker/python.Dockerfile
+    environment:
+      MONGO_URI: "mongodb://user:secretPassword@mongo:27017/apy"
     depends_on:
       - 'mongo'
   mongo:

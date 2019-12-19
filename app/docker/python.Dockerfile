@@ -4,8 +4,6 @@ LABEL maintainer="ElDiabloRojo <holdens.uk@googlemail.com>"
 LABEL version="1.3"
 LABEL description="Docker image for apy."
 
-ENV BOKEH_RESOURCES=inline
-
 COPY requirements.txt /
 
 RUN pip install -r /requirements.txt
