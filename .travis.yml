@@ -17,15 +17,8 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker ps
 
-
-
-before_script:
-  - make compose
-
-after_script:
-  - make decompose
+after_script: make decompose
 
 jobs:
   include:
@@ -33,27 +26,35 @@ jobs:
       name: "Newman"
       language: node_js
       node_js: 13.2.0
-      script: make travis-nm
       install: npm install newman
+      before_script: make compose
+      script: make travis-nm
+      after_script: make decompose
     - name: "Curl"
-      script: make curl
       install: sudo apt install -y curl
+      before_script: make compose
+      script: make curl
+      after_script: make decompose
     - name: "Apache Benchmark"
-      script: make ab
       install: sudo apt install -y apache2-utils
+      before_script: make compose
+      script: make ab
+      after_script: make decompose
     - stage: deploy
       script: skip
       deploy:
-        provider: elasticbeanstalk
-        region: 'eu-north-1'
-        app: 'apy'
-        env: 'Apy-env'
-        bucket_name: 'elasticbeanstalk-eu-north-1-719789094322'
-        bucket_path: 'apy'
-        access_key_id:
-          secure: $AWS_ACCESS_KEY
-        secret_access_key:
-          secure: $AWS_SECRET_KEY
+        - provider: elasticbeanstalk
+          region: 'eu-north-1'
+          app: 'apy'
+          env: 'Apy-env'
+          bucket_name: 'elasticbeanstalk-eu-north-1-719789094322'
+          bucket_path: 'apy'
+          access_key_id:
+            secure: $AWS_ACCESS_KEY
+          secret_access_key:
+            secure: $AWS_SECRET_KEY
+          on:
+            all_branch: true
 
 stages:
   - test
