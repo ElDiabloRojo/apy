@@ -40,19 +40,20 @@ jobs:
       script: make curl
     - name: "Apache Benchmark"
       script: make ab
-
-deploy:
-  provider: elasticbeanstalk
-  region: 'eu-north-1'
-  app: 'apy'
-  env: 'Apy-env'
-  bucket_name: 'elasticbeanstalk-eu-north-1-719789094322'
-  bucket_path: 'apy'
-  access_key_id:
-    secure: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: $AWS_SECRET_KEY
-
+    - stage: deploy
+      script: skip
+      deploy:
+        provider: elasticbeanstalk
+        region: 'eu-north-1'
+        app: 'apy'
+        env: 'Apy-env'
+        bucket_name: 'elasticbeanstalk-eu-north-1-719789094322'
+        bucket_path: 'apy'
+        access_key_id:
+          secure: $AWS_ACCESS_KEY
+        secret_access_key:
+          secure: $AWS_SECRET_KEY
+          
 stages:
   - test
   - deploy
