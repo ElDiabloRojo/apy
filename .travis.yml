@@ -61,15 +61,8 @@ jobs:
       script: skip
       skip_cleanup: true
       deploy:
-        - provider: elasticbeanstalk
-          region: 'eu-north-1'
-          app: 'apy'
-          env: 'Apy-env'
-          bucket_name: 'elasticbeanstalk-eu-north-1-719789094322'
-          bucket_path: 'apy'
-          access_key_id:
-            secure: $AWS_ACCESS_KEY
-          secret_access_key:
-            secure: $AWS_SECRET_KEY
-          on:
-            all_branch: true
+        provider: heroku
+        api_key: ${HEROKU_API_KEY}
+        skip_cleanup: true
+        on:
+          all_branch: true
