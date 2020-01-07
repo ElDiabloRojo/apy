@@ -9,16 +9,9 @@ env:
 language: python
 python: "3.7"
 
-before_install:
-  - sudo make configure
-  - sudo apt-get update
-  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-
-after_script: make decompose
+stages:
+  - test
+  - deploy
 
 jobs:
   include:
@@ -26,22 +19,47 @@ jobs:
       name: "Newman"
       language: node_js
       node_js: 13.2.0
+      before_install:
+        - sudo make configure
+        - sudo apt-get update
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install: npm install newman
       before_script: make compose
       script: make travis-nm
       after_script: make decompose
     - name: "Curl"
+      before_install:
+        - sudo make configure
+        - sudo apt-get update
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install: sudo apt install -y curl
       before_script: make compose
       script: make curl
       after_script: make decompose
     - name: "Apache Benchmark"
+      before_install:
+        - sudo make configure
+        - sudo apt-get update
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install: sudo apt install -y apache2-utils
       before_script: make compose
       script: make ab
       after_script: make decompose
     - stage: deploy
       script: skip
+      skip_cleanup: true
       deploy:
         - provider: elasticbeanstalk
           region: 'eu-north-1'
@@ -55,7 +73,3 @@ jobs:
             secure: $AWS_SECRET_KEY
           on:
             all_branch: true
-
-stages:
-  - test
-  - deploy
