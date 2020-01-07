@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "023b66cb-b65a-4816-89f4-ed617dc28fd7",
-		"name": "apy",
+		"_postman_id": "b59548cc-e54e-4da9-a710-f3b618e9126c",
+		"name": "apy copy",
 		"description": "api tests for apy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -25,7 +25,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{url}}/?m={{message}}",
 					"host": [
@@ -51,17 +54,21 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "588df077-423d-414c-aa6d-3addfa163df8",
+						"id": "5e4430df-4189-469d-8e22-0c08e898d28d",
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"",
 							"pm.test(\"Verify posting value.\", function () {",
-							"    pm.expect(jsonData.result.value).to.eql(\"xyz\");",
+							"    pm.expect(jsonData.result.value).to.eql(\"123\");",
+							"});",
+							"",
+							"pm.test(\"Verify posting value.\", function () {",
+							"    pm.expect(jsonData.result.value).to.eql(\"123\");",
 							"});",
 							"",
 							"pm.test(\"Verify posting label.\", function () {",
-							"    pm.expect(jsonData.result.label).to.eql(\"xyz\");",
+							"    pm.expect(jsonData.result.label).to.eql(\"label\");",
 							"});"
 						]
 					}
@@ -77,7 +84,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"label\":\"xyz\",\"value\":\"xyz\"}"
+					"raw": "{\"label\":\"label\",\"duration\":\"123\",\"value\":\"123\"}"
 				},
 				"url": {
 					"raw": "{{url}}/star",
@@ -124,7 +131,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{url}}/star",
 					"host": [

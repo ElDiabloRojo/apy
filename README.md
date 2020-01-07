@@ -1,5 +1,5 @@
 # apy
 
-milestone bokeh!
+chart.js library mixed chart example.
 
-![bokeh](docs/img/first-bokeh.png)
+![bokeh](docs/img/mixed-chart.png)

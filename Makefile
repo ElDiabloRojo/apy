@@ -24,7 +24,7 @@ rm-apy:
 build-nginx:
 	docker build -t nginx_amplify nginx -f nginx/docker/nginx.Dockerfile
 
-rm-apy:
+rm-nginx:
 	docker image rm nginx_amplify
 
 ###
@@ -63,8 +63,11 @@ dep:
 nm:
 	newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_environment.json
 
+travis-nm:
+	node_modules/.bin/newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_environment.json
+
 curl:
-	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://localhost/?m=message" && curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/?m=message"
+	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/?m=message"
 
 ab:
 	ab -n 10000 -c 1000 -r "http://apy.local/?m=message"
