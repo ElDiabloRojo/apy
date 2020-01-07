@@ -19,9 +19,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - docker ps
 
-install:
-  - npm install newman
-  - sudo apt install -y curl apache2-utils
+
 
 before_script:
   - make compose
@@ -36,10 +34,13 @@ jobs:
       language: node_js
       node_js: 13.2.0
       script: make travis-nm
+      install: npm install newman
     - name: "Curl"
       script: make curl
+      install: sudo apt install -y curl
     - name: "Apache Benchmark"
       script: make ab
+      install: sudo apt install -y apache2-utils
     - stage: deploy
       script: skip
       deploy:
@@ -53,7 +54,7 @@ jobs:
           secure: $AWS_ACCESS_KEY
         secret_access_key:
           secure: $AWS_SECRET_KEY
-          
+
 stages:
   - test
   - deploy
