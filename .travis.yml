@@ -59,10 +59,9 @@ jobs:
       after_script: make decompose
     - stage: deploy
       script: skip
-      skip_cleanup: true
       deploy:
         provider: heroku
         api_key: ${HEROKU_API_KEY}
-        skip_cleanup: true
+        cleanup: false
         on:
-          all_branch: true
+          all_branches: true
