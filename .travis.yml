@@ -19,9 +19,9 @@ stages:
 
 jobs:
   include:
-    - stage: docker
-      name: make build-all
-      script: docker
+    - stage: build
+      name: build docker images
+      script: make build-all
     - stage: test
       name: newman
       language: node_js
