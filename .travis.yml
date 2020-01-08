@@ -65,6 +65,7 @@ jobs:
       deploy:
         provider: heroku
         api_key: ${HEROKU_API_KEY}
+        app: holden-apy
         cleanup: false
         on:
           all_branches: true
