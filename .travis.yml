@@ -14,7 +14,7 @@ python: "3.7"
 
 stages:
   - test
-  - build
+  - docker
   - deploy
 
 jobs:
