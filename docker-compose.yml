@@ -18,7 +18,7 @@ services:
     container_name: "apy"
     image: 0sum/apy
     environment:
-      MONGO_URI: "mongodb://user:secretPassword@mongo:27017/apy"
+      MONGODB_URI: "mongodb://user:secretPassword@mongo:27017/apy"
     depends_on:
       - 'mongo'
   mongo:
