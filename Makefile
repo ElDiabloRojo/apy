@@ -61,10 +61,10 @@ dep:
 # Test Targets
 ###
 nm:
-	newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_environment.json
+	newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_env_local.json
 
 travis-nm:
-	node_modules/.bin/newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_environment.json
+	node_modules/.bin/newman run test/newman/apy.postman_collection.json -e test/newman/apy.postman_env_local.json
 
 curl:
 	curl -w "@test/curl/curl-format.txt" -o /dev/null -s "http://apy.local/?m=message"
