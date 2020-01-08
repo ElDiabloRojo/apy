@@ -20,9 +20,9 @@ stages:
 jobs:
   include:
     - stage: build
-      name: build apy
+      name: apy
       script: make build-apy
-    - name: build nginx-amplify
+    - name: nginx-amplify
       script: make build-nginx
     - stage: test
       name: newman

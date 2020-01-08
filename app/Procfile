@@ -1,1 +1,1 @@
-web: ls -lsah && gunicorn --workers 2 --threads 4 --log-level info --bind 0.0.0.0:5000 run:app
+web: gunicorn --workers 2 --threads 4 --log-syslog --log-level info --bind 0.0.0.0:${PORT} run:app
