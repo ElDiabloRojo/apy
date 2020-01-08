@@ -61,19 +61,19 @@ jobs:
       script: make ab
       after_script: make decompose
     - stage: docker
-      - name: build
-        script:
-          - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          - docker-compose build
-          - docker images
-      - name: push apy
-        script:
-          - docker tag apy $DOCKER_USERNAME/apy
-          - docker push $DOCKER_USERNAME/apy
-      - name: push nginx
-        script:
-          - docker tag nginx-amplify $DOCKER_USERNAME/nginx-amplify
-          - docker push $DOCKER_USERNAME/nginx-amplify
+      name: build
+      script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker-compose build
+        - docker images
+    - name: push apy
+      script:
+        - docker tag apy $DOCKER_USERNAME/apy
+        - docker push $DOCKER_USERNAME/apy
+    - name: push nginx
+      script:
+        - docker tag nginx-amplify $DOCKER_USERNAME/nginx-amplify
+        - docker push $DOCKER_USERNAME/nginx-amplify
     - stage: deploy
       script: skip
       before_deploy:
