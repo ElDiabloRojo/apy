@@ -16,22 +16,22 @@ rm-all:
 	make rm-apy; make rm-apy
 
 build-apy:
-	docker build -t apy app/ -f app/docker/python.Dockerfile
+	docker build -t 0sum/apy app/ -f app/docker/python.Dockerfile
 
 rm-apy:
-	docker image rm apy
+	docker image rm 0sum/apy
 
 build-nginx:
-	docker build -t nginx_amplify nginx -f nginx/docker/nginx.Dockerfile
+	docker build -t 0sum/nginx-amplify nginx/ -f nginx/docker/nginx.Dockerfile
 
 rm-nginx:
-	docker image rm nginx_amplify
+	docker image rm 0sum/nginx-amplify
 
 ###
 # Compose Targets
 ###
 compose: docker-compose.yml
-	docker-compose up --detach --build
+	docker-compose up --detach --no-build
 
 decompose: docker-compose.yml
 	docker-compose down --volumes

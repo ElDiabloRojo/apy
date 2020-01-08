@@ -4,6 +4,9 @@ services:
     restart: always
     container_name: "nginx_amplify"
     image: 0sum/nginx-amplify
+    build:
+      context: nginx/
+      dockerfile: docker/nginx.Dockerfile
     environment:
       API_KEY: "1ec221f0b8ef2ae20728a6d2e46319a6"
       AMPLIFY_IMAGENAME: apy
@@ -17,6 +20,9 @@ services:
     restart: always
     container_name: "apy"
     image: 0sum/apy
+    build:
+      context: app/
+      dockerfile: docker/python.Dockerfile
     environment:
       MONGODB_URI: "mongodb://user:secretPassword@mongo:27017/apy"
     depends_on:
