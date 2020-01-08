@@ -23,7 +23,7 @@ jobs:
       name: build apy
       script: make build-apy
     - name: build nginx-amplify
-      script: make build-amplify
+      script: make build-nginx
     - stage: test
       name: newman
       language: node_js
