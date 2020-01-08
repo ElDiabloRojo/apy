@@ -1,0 +1,21 @@
+{
+  "id": "655409f8-8422-4d01-9178-95aa0607fbca",
+  "name": "apy",
+  "values": [
+    {
+      "key": "url",
+      "value": "apy.local",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "message",
+      "value": "MessageTest",
+      "enabled": true,
+      "type": "text"
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2019-12-11T15:53:55.101Z",
+  "_postman_exported_using": "Postman/6.0.10"
+}

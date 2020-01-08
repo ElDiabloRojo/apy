@@ -3,43 +3,78 @@ notifications:
     rooms:
       secure: nSUPxSqmTkHwieKUM3NdVq3/2A1QpKZj58c3hQIWYtYo0TSgNB9YFKp90ZyLKf2njaU4iC/TDojtiHt91UKdsPDwXNCvE1Lokl753MzzbnEDpAOYTy4y9PZYnzAHsKu17Y1ZS0q6p9LCL3ob+rmaVs59cWp11Dv+Ex/mjKxfMikKUejLH8hiZ6suwahoBm7BgeVTIJX+RoEsvtsu6LXw+WTGxdziulo0jUYcwVubyYiSkjMVCLW/ugzibdQVUoK3N3IK1DCu4uwaQKR3kHcdRV96ZLIJdIsbUncdVtjS1fDVNbI1XzhiAqiiUUHGojtdJc+iF1VEVfEf7XXOW8muVB9G9NOINS8Zw3vgfcYHGh9ionUnL0ZTxPK8LGdvJe5m8u8fPpvQ90tYzgt8CrP5AIEtjUFEc0hE8OG/YjNB8RpgjpoSrL0ms66ylMYC7u9DlJ3wAxawaqCycNs9+NmcCh8OYfsNfWMqnZvks5FtlSry/cdWxCLN5YRscHH7nKHNHsARolCTRkwKm6EJ2oN+unhGo5n7BKpe+DxzDNF3IO2+jJSrmLnj5zvTHUlCGf/sDo1sC/TByW/aT/XDLU0UskhWIj1X/Q8FqX+BGbuxlZ2ZCKXntYWrYzBa+d8cXUrSON19ahHQtxGmBY2oNrziMzoKy1xC5g8S9CivMUPI5bc=
 
+services:
+  - docker
+
 env:
   - DOCKER_COMPOSE_VERSION=1.24.1
 
 language: python
 python: "3.7"
 
-before_install:
-  - sudo make configure
-  - sudo apt-get update
-  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - docker ps
-
-install:
-  - npm install newman
-  - sudo apt install -y curl apache2-utils
-
-before_script:
-  - make compose
-
-after_script:
-  - make decompose
+stages:
+  - build
+  - test
+  - deploy
 
 jobs:
   include:
+    - stage: build
+      name: apy
+      script: make build-apy
+    - name: nginx-amplify
+      script: make build-nginx
     - stage: test
-      name: "Newman"
+      name: newman
       language: node_js
       node_js: 13.2.0
+      before_install:
+        - sudo make configure
+        - sudo apt-get update
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
+        - docker images
+      install: npm install newman
+      before_script: make compose
       script: make travis-nm
-    - name: "Curl"
+      after_script: make decompose
+    - name: curl
+      before_install:
+        - sudo make configure
+        - sudo apt-get update
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
+      install: sudo apt install -y curl
+      before_script: make compose
       script: make curl
-    - name: "Apache Benchmark"
+      after_script: make decompose
+    - name: apache benchmark
+      before_install:
+        - sudo make configure
+        - sudo apt-get update
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
+      install: sudo apt install -y apache2-utils
+      before_script: make compose
       script: make ab
-
-stages:
-  - test
+      after_script: make decompose
+    - stage: deploy
+      script: skip
+      before_deploy:
+        - cd app/
+      deploy:
+        provider: heroku
+        api_key: ${HEROKU_API_KEY}
+        app: holden-apy
+        cleanup: false
+        on:
+          all_branches: true
