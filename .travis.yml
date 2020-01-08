@@ -14,12 +14,13 @@ python: "3.7"
 
 stages:
   - test
+  - build
   - deploy
 
 jobs:
   include:
     - stage: test
-      name: "Newman"
+      name: newman
       language: node_js
       node_js: 13.2.0
       before_install:
@@ -34,7 +35,7 @@ jobs:
       before_script: make compose
       script: make travis-nm
       after_script: make decompose
-    - name: "Curl"
+    - name: curl
       before_install:
         - sudo make configure
         - sudo apt-get update
@@ -47,7 +48,7 @@ jobs:
       before_script: make compose
       script: make curl
       after_script: make decompose
-    - name: "Apache Benchmark"
+    - name: apache benchmark"
       before_install:
         - sudo make configure
         - sudo apt-get update
