@@ -53,7 +53,7 @@ jobs:
       before_script: make compose
       script: make curl
       after_script: make decompose
-    - name: apache benchmark"
+    - name: apache benchmark
       before_install:
         - sudo make configure
         - sudo apt-get update
