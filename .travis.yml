@@ -20,8 +20,10 @@ stages:
 jobs:
   include:
     - stage: build
-      name: build docker images
-      script: make build-all
+      name: build apy
+      script: make build-apy
+    - name: build nginx-amplify
+      script: make build-amplify
     - stage: test
       name: newman
       language: node_js

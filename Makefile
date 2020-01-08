@@ -31,7 +31,7 @@ rm-nginx:
 # Compose Targets
 ###
 compose: docker-compose.yml
-	docker-compose up --detach --no-build
+	docker-compose up --detach
 
 decompose: docker-compose.yml
 	docker-compose down --volumes
