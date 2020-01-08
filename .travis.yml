@@ -62,6 +62,8 @@ jobs:
       after_script: make decompose
     - stage: deploy
       script: skip
+      before_deploy:
+        - cd app/
       deploy:
         provider: heroku
         api_key: ${HEROKU_API_KEY}

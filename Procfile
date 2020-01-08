@@ -1,1 +1,0 @@
-web: gunicorn --workers 2 --threads 4 --log-level info --bind 0.0.0.0:5000 run:app
